@@ -9,14 +9,42 @@ function getWeatherOfCity(nameCity) {
         })
         .then((data) => {
             // code inside here update the DOM
-            console.log(data);
-            drawWeatherOfCity(data);
+            const url = `https://api.openweathermap.org/data/2.5/onecall?lat=${data.coord.lat}&lon=${data.coord.lon}&exclude=hourly,minutely&appid=${key}&units=imperial`;
+            fetch(url)
+                .then((response) => {
+                    return response.json();
+                }).then((data) => {
+                    console.log(data);
+                    drawWeatherOfCity(data);
+                })
         });
 }
 
 function drawWeatherOfCity(weatherData) {
-    const temperature = weatherData.main.temp;
-    document.getElementById("weatherReturned").innerHTML = `<h1> The current temperature is: ${temperature}℉ </h1>`;
+    const temperature = weatherData.current.temp;
+    const humidity = weatherData.current.humidity;
+    const windSpeed = weatherData.current.wind_speed;
+    const UVindex = weatherData.current.uvi;
+    document.getElementById("weatherReturned").innerHTML = `
+
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">The current temperature is: ${temperature}℉ </li>
+        <li class="list-group-item">The current humidity is: ${humidity}%</li>
+        <li class="list-group-item">The current UV index is: ${UVindex}/10 </li>
+        <li class="list-group-item">The current windspeed is: ${windSpeed}MPH</li>
+    </ul>
+    `;
+
+    //date weather conditions temperature and humidity
+    for (let i=0; i<5; i++){
+        const currentDate = new Date(weatherData.daily.dt * 1000);
+        const currentTemp = weatherData.daily.temp;
+        const currentHumidity = weatherData.daily.humidity;
+        const currentWindspeed = weatherData.daily.windSpeed;
+        const weatherIcon = weatherData.daily.weather.icon;
+    }
+    
+
 }
 
 /*
