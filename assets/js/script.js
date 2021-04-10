@@ -2,7 +2,9 @@ const key = "441ab10a773a3174b04e9e95a884b2bc";
 
 let visitedCities = [];
 
-
+document.getElementById("buttonSearchInput").onclick = () => {
+    getWeatherOfCity(document.getElementById("citySeachInput").value);
+};
 
 function getWeatherOfCity(nameCity) {
     const url = `https://api.openweathermap.org/data/2.5/weather?q=${nameCity}&appid=${key}&units=imperial`;
@@ -66,9 +68,14 @@ function drawWeatherOfCity(weatherData) {
     addToVisitedCities(weatherData.cityName);
     document.getElementById("citySearchHistory").innerHTML = `<ul class="list-group list-group-flush">`;
     for (let i = 0; i < Math.min(8, visitedCities.length); i++) {
-        document.getElementById("citySearchHistory").innerHTML += ` <li class="list-group-item"> ${visitedCities[i]}</li>`;
+        document.getElementById("citySearchHistory").innerHTML += ` <li class="list-group-item" id="searchHistoryRelink${i}"> ${visitedCities[i]}</li>`;
     }
     document.getElementById("citySearchHistory").innerHTML += `</ul>`;
+    for(let i = 0; i < Math.min(8, visitedCities.length); i++) {
+        document.getElementById(`searchHistoryRelink${i}`).onclick = () => {
+            getWeatherOfCity(visitedCities[i]);
+        }
+    }
 
 }
 
