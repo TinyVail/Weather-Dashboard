@@ -97,5 +97,5 @@ async function getWeatherAsync(nameCity) {
 
 
 
-getWeatherOfCity("Bismark");
+getWeatherOfCity();
 console.log("Hello");
