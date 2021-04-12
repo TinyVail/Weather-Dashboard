@@ -1,11 +1,6 @@
 SIMPLE WEATHER API THAT WILL LET YOU INPUT CITY TO SELECT WEATHER LOCATION
 ## User Story
 
-```
-AS A traveler
-I WANT to see the weather outlook for multiple cities
-SO THAT I can plan a trip accordingly
-```
 
 ```
 GIVEN a weather dashboard with form inputs
